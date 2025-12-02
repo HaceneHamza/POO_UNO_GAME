@@ -54,12 +54,7 @@ public class PLAYER
     	return hand.size();
     }
 	
-	/*
-	 *public boolean hasPlayableCard(CARD card)
-	{
-		
-	}
-	 */
+
 	
 	public ArrayList<CARD> getPlayableCards()
 	{
@@ -67,7 +62,7 @@ public class PLAYER
 		for (int i = 0; i<hand.size();i++)
 		{
 			CARD card = hand.get(i);
-			//if(hasPlayableCard(card)) list.add(card);
+			//if() list.add(card);
 		}
 		return list;
 	}
