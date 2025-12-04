@@ -1,13 +1,18 @@
+package UNO;
+
 import java.util.Collections;
+
+
+
 import java.util.Stack;
 
-import javax.smartcardio.Card;
+import javax.smartcardio.CARD;
 
 public class DECK {
-    private Stack<Card> cards;
+    private Stack<CARD> cards;
     
     public DECK() {
-        this.cards = new Stack<Card>();
+        this.cards = new Stack<CARD>();
         initializeDeck(); //Initialize deck on creation
     }
     
@@ -56,7 +61,7 @@ public class DECK {
         Collections.shuffle(cards); //Use built-in shuffle function
     }
     
-    public Card draw() {
+    public CARD draw() {
         //Check if the deck is empty
         if (cards.isEmpty()) {
             initializeDeck();

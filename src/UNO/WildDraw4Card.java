@@ -2,7 +2,7 @@ package UNO;
 
 public class WildDraw4Card extends CARD implements EFFECT {
     public WildDraw4Card() {
-        super(Color.wild, Value.WILD_DRAW_FOUR);
+        super(Color.WILD, Value.WILD_DRAW_FOUR);
     }
     
     
