@@ -1,20 +1,24 @@
 package UNO;
 
-public class WildDrawCard extends CARD implements EFFECT {
-	public WildDrawCard() {
-        super(Color.WILD, Value.WILD);
+public class WildDraw4Card extends CARD implements EFFECT {
+    public WildDraw4Card() {
+        super(Color.wild, Value.WILD_DRAW_FOUR);
     }
     
-
+    
     public boolean isPlayableOn(CARD card) {
+
         return true;
     }
     
-
+    
     public void applyEffect(GAME game) {
+    	
         Color chosen = game.askPlayerForColor();
         chooseColor(chosen);
-        game.nextTurn();
+        
+        game.drawCards(4);
+        game.skipNextPlayer();
     }
     
     public void chooseColor(Color color) {
@@ -23,5 +27,4 @@ public class WildDrawCard extends CARD implements EFFECT {
         }
         setColor(color);
     }
-    
 }
