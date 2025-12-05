@@ -1,12 +1,7 @@
 package UNO;
 
 import java.util.Collections;
-
-
-
 import java.util.Stack;
-
-import javax.smartcardio.CARD;
 
 public class DECK {
     private Stack<CARD> cards;
@@ -19,18 +14,21 @@ public class DECK {
     public void initializeDeck() {
         // Add number cards for each color
         for (Color color : Color.values()) {
+            if (color == Color.WILD) continue;
             // Add number 0 card (only one per color)
-            cards.push(new NumberCard(color, 0));
+            cards.push(new NumberCard(color, Value.ZERO));
             
             // Add numbers 1-9 (each twice)
             for (int number = 1; number <= 9; number++) {
-                cards.push(new NumberCard(color, number));
-                cards.push(new NumberCard(color, number));
+                Value val = Value.values()[number];
+                cards.push(new NumberCard(color, val));
+                cards.push(new NumberCard(color, val));
             }
         }
         
         // Add action cards for each color (each twice)
         for (Color color : Color.values()) {
+            if (color == Color.WILD) continue;
             // Skip cards
             cards.push(new SkipCard(color));
             cards.push(new SkipCard(color));
@@ -49,10 +47,6 @@ public class DECK {
             cards.push(new WildCard());
             cards.push(new WildDrawCard());
         }
-        
-        // for (int i = 0; i < 4; i++) {
-        //     cards.push(new WildDrawCard());
-        // }
         
         shuffle(); //Shuffle the cards
     }

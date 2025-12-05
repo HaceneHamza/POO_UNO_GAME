@@ -4,16 +4,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class PLAYER {
 
-
-
-		private String name; 
-		private ArrayList<CARD> hand;
-		private boolean isTurn;
-		
-		public void setName(String name)
-		{
-			this.name = name;
-		}
+	private String name; 
+	private ArrayList<CARD> hand;
+	private boolean isTurn;
+	
+	public PLAYER() {
+		this.name = "";
+		this.hand = new ArrayList<CARD>();
+		this.isTurn = false;
+	}
+	
+	public PLAYER(String name) {
+		this.name = name;
+		this.hand = new ArrayList<CARD>();
+		this.isTurn = false;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 		
 		public void setTurn(boolean isTurn)
 		{
