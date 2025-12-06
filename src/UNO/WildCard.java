@@ -1,15 +1,16 @@
 package UNO;
 
 public class WildCard extends CARD implements EFFECT {
-    public WildCard() {
+	public WildCard() {
         super(Color.WILD, Value.WILD);
     }
     
-    @Override
+
     public boolean isPlayableOn(CARD card) {
         return true;
     }
     
+
     public void applyEffect(GAME game) {
         Color chosen = game.askPlayerForColor();
         chooseColor(chosen);
@@ -22,4 +23,5 @@ public class WildCard extends CARD implements EFFECT {
         }
         setColor(color);
     }
+    
 }

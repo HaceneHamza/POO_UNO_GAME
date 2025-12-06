@@ -7,17 +7,20 @@ public class PLAYER {
 	private String name; 
 	private ArrayList<CARD> hand;
 	private boolean isTurn;
+	private boolean hasAnnouncedUNO; // Track if player said UNO when down to 1 card
 	
 	public PLAYER() {
 		this.name = "";
 		this.hand = new ArrayList<CARD>();
 		this.isTurn = false;
+		this.hasAnnouncedUNO = false;
 	}
 	
 	public PLAYER(String name) {
 		this.name = name;
 		this.hand = new ArrayList<CARD>();
 		this.isTurn = false;
+		this.hasAnnouncedUNO = false;
 	}
 	
 	public void setName(String name)
@@ -96,6 +99,7 @@ public class PLAYER {
 				}
 				Scanner sc = new Scanner(System.in);
 				int index = sc.nextInt();
+				sc.close();
 				return list.get(index - 1);
 			}
 			else return null;
@@ -105,6 +109,19 @@ public class PLAYER {
 		{
 			if(hand.size() == 1)
 			System.out.println("UNO");
+		}
+		
+		public void setUNOAnnounced(boolean announced) {
+			this.hasAnnouncedUNO = announced;
+		}
+		
+		public boolean hasUNOAnnounced() {
+			return this.hasAnnouncedUNO;
+		}
+		
+		public boolean shouldPenalizeMissingUNO() {
+			// If player has 1 card and hasn't announced UNO, they get penalized
+			return hand.size() == 1 && !hasAnnouncedUNO;
 		}
 		
 		

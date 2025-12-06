@@ -1,5 +1,6 @@
 package UNO;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 
@@ -45,7 +46,7 @@ public class DECK {
         // Add wild cards (4 of each type)
         for (int i = 0; i < 4; i++) {
             cards.push(new WildCard());
-            cards.push(new WildDrawCard());
+            cards.push(new WildDraw4Card());
         }
         
         shuffle(); //Shuffle the cards
@@ -58,12 +59,15 @@ public class DECK {
     public CARD draw() {
         //Check if the deck is empty
         if (cards.isEmpty()) {
-            initializeDeck();
-            // In this design, when the deck is empty we create a completely new set of cards
-            // because we don't maintain a separate discard pile 
-            // we have the shuffle function inside the initializeDeck function
+            return null; // Return null, let GAME handle reshuffle from discard
         }
         return cards.pop(); //Draw and return the top card from the deck
-
+    }
+    
+    public void addToDeck(ArrayList<CARD> cardsToAdd) {
+        for (CARD card : cardsToAdd) {
+            cards.push(card);
+        }
+        shuffle();
     }
 }

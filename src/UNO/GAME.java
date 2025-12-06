@@ -63,7 +63,10 @@ public class GAME {
         int target = (currentPlayerIndex + direction + players.size()) % players.size();
         PLAYER p = players.get(target);
         for (int i = 0; i < n; i++) {
-            p.drawCard(deck.draw());
+            CARD card = drawCardFromDeck();
+            if (card != null) {
+                p.drawCard(card);
+            }
         }
     }
 
@@ -86,6 +89,7 @@ public class GAME {
             default:
                 return Color.RED;
         }
+        
     }
 
     public boolean playCard(PLAYER player, CARD card) {
@@ -111,5 +115,45 @@ public class GAME {
 
     public ArrayList<PLAYER> getPlayers() {
         return players;
+    }
+    
+    public void checkAndApplyUNOPenalty(PLAYER player) {
+        // Check if player has 1 card but didn't announce UNO
+        if (player.shouldPenalizeMissingUNO()) {
+            System.out.println("PENALTY: " + player.getName() + " forgot to say UNO! Drawing 2 penalty cards.");
+            for (int i = 0; i < 2; i++) {
+                CARD card = drawCardFromDeck();
+                if (card != null) {
+                    player.drawCard(card);
+                }
+            }
+            player.setUNOAnnounced(false); // Reset for next time
+        }
+    }
+    
+    private CARD drawCardFromDeck() {
+        CARD card = deck.draw();
+        if (card == null) {
+            // Reshuffle discard pile
+            reshuffleDiscardIntoDeck();
+            card = deck.draw();
+        }
+        return card;
+    }
+    
+    private void reshuffleDiscardIntoDeck() {
+        if (discard.size() <= 1) {
+            System.out.println("ERROR: Not enough cards in discard pile to reshuffle!");
+            return;
+        }
+        
+        // Keep the top card, add the rest back to deck
+        CARD topCard = discard.pop();
+        ArrayList<CARD> cardsToReshufle = new ArrayList<>(discard);
+        discard.clear();
+        discard.push(topCard);
+        
+        System.out.println("Deck empty! Reshuffling discard pile into draw pile...");
+        deck.addToDeck(cardsToReshufle);
     }
 }
