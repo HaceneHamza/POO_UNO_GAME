@@ -21,7 +21,7 @@ public class DECK {
             
             // Add numbers 1-9 (each twice)
             for (int number = 1; number <= 9; number++) {
-                Value val = Value.values()[number];
+                Value val = Value.fromInt(number);
                 cards.push(new NumberCard(color, val));
                 cards.push(new NumberCard(color, val));
             }

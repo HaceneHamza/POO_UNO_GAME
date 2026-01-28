@@ -25,6 +25,10 @@ public class UNO_main {
     	 catch (IllegalArgumentException e) {
         System.out.println("ERROR: " + e.getMessage() + " Try again.");
     	 }
+    	 catch (Exception e) {
+             System.out.println("ERROR: Invalid input! Try again.");
+             sc.nextLine();
+         }
     }
    
 
