@@ -3,6 +3,7 @@ package UNO;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Random;
 
 public class GAME {
     private DECK deck;
@@ -70,11 +71,18 @@ public class GAME {
         }
     }
 
-    public Color askPlayerForColor() {
+    public Color askPlayerForColor(PLAYER player) {
         System.out.println(getCurrentPlayer().getName() + ", choose a color: 1.RED 2.BLUE 3.GREEN 4.YELLOW");
-        Scanner sc = new Scanner(System.in);
+        Random rand = new Random();
         int choice = 5;
-
+        if(player instanceof BOT) 
+        {
+        	int randomInt = rand.nextInt(3) + 1; 
+        	choice = randomInt;
+        }
+        else {
+        Scanner sc = new Scanner(System.in);
+        
         while(choice > 4 || choice < 1)
         {
         	 try {
@@ -92,7 +100,7 @@ public class GAME {
                  sc.nextLine();
              }
         }
-
+        }
         switch (choice) {
             case 2:
                 return Color.BLUE;

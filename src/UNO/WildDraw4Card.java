@@ -14,7 +14,7 @@ public class WildDraw4Card extends CARD implements EFFECT {
     
     public void applyEffect(GAME game) {
     	
-        Color chosen = game.askPlayerForColor();
+        Color chosen = game.askPlayerForColor(game.getCurrentPlayer());
         chooseColor(chosen);
         
         game.drawCards(4);
