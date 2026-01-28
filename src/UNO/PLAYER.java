@@ -70,39 +70,20 @@ public class PLAYER {
 		
 
 		
-		public ArrayList<CARD> getPlayableCards()
-		{
-			ArrayList<CARD> list = new ArrayList<>();
-			for (int i = 0; i<hand.size();i++)
-			{
-				CARD card = hand.get(i);
-				//if() list.add(card);
-			}
-			return list;
-		}
-		
 		public void playCard(CARD card)
 		{
 			removeCard(card);
 			announceUno();
 		}
 		
-		public CARD selectPlayableCard()
+		public boolean isHasPlayableCards(CARD card)
 		{
-			ArrayList<CARD> list = getPlayableCards();
-			if(!list.isEmpty())
+			int playableCard = 0;
+			for (int i = 0; i<hand.size();i++)
 			{
-				System.out.println("Choose a Card please ");
-				for(int i = 0; i<list.size();i++)
-				{
-					System.out.println((i+1) + "_ " + list.get(i));
-				}
-				Scanner sc = new Scanner(System.in);
-				int index = sc.nextInt();
-				sc.close();
-				return list.get(index - 1);
+				if(hand.get(i).isPlayableOn(card)) playableCard++;
 			}
-			else return null;
+			return playableCard > 0;
 		}
 		
 		private void announceUno()

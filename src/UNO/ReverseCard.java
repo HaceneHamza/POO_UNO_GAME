@@ -1,6 +1,6 @@
 package UNO;
 
-public class ReverseCard extends CARD {
+public class ReverseCard extends CARD implements EFFECT{
     public ReverseCard(Color color) {
         super(color, Value.REVERSE);
     }

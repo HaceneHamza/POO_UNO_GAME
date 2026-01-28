@@ -12,7 +12,7 @@ public class DECK {
         initializeDeck(); //Initialize deck on creation
     }
     
-    public void initializeDeck() {
+   public void initializeDeck() {
         // Add number cards for each color
         for (Color color : Color.values()) {
             if (color == Color.WILD) continue;
@@ -25,11 +25,9 @@ public class DECK {
                 cards.push(new NumberCard(color, val));
                 cards.push(new NumberCard(color, val));
             }
-        }
-        
-        // Add action cards for each color (each twice)
-        for (Color color : Color.values()) {
-            if (color == Color.WILD) continue;
+         
+            // Add action cards for each color (each twice)
+            
             // Skip cards
             cards.push(new SkipCard(color));
             cards.push(new SkipCard(color));
@@ -41,7 +39,10 @@ public class DECK {
             // Reverse cards
             cards.push(new ReverseCard(color));
             cards.push(new ReverseCard(color));
+        
         }
+        
+       
         
         // Add wild cards (4 of each type)
         for (int i = 0; i < 4; i++) {
