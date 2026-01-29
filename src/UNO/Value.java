@@ -7,7 +7,9 @@ public enum Value {
 
     private final int numVal;
     
-    Value(int numVal) { this.numVal = numVal; }
+    Value (int numVal) {
+        this.numVal = numVal; 
+    }
     
     public static Value fromInt(int n) {
         for (Value v : Value.values()) 

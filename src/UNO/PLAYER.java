@@ -1,13 +1,12 @@
 
 package UNO;
 import java.util.ArrayList;
-import java.util.Scanner;
 public class PLAYER {
 
 	private String name; 
 	private ArrayList<CARD> hand;
 	private boolean isTurn;
-	private boolean hasAnnouncedUNO; // Track if player said UNO when down to 1 card
+	private boolean hasAnnouncedUNO;
 	
 	public PLAYER() {
 		this.name = "";
@@ -101,19 +100,7 @@ public class PLAYER {
 		}
 		
 		public boolean shouldPenalizeMissingUNO() {
-			// If player has 1 card and hasn't announced UNO, they get penalized
 			return hand.size() == 1 && !hasAnnouncedUNO;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-
 }
 

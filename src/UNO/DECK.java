@@ -9,34 +9,34 @@ public class DECK {
     
     public DECK() {
         this.cards = new Stack<CARD>();
-        initializeDeck(); //Initialize deck on creation
+        initializeDeck(); 
     }
     
    public void initializeDeck() {
-        // Add number cards for each color
+     
         for (Color color : Color.values()) {
             if (color == Color.WILD) continue;
-            // Add number 0 card (only one per color)
+            
             cards.push(new NumberCard(color, Value.ZERO));
             
-            // Add numbers 1-9 (each twice)
+        
             for (int number = 1; number <= 9; number++) {
                 Value val = Value.fromInt(number);
                 cards.push(new NumberCard(color, val));
                 cards.push(new NumberCard(color, val));
             }
          
-            // Add action cards for each color (each twice)
             
-            // Skip cards
+            
+            
             cards.push(new SkipCard(color));
             cards.push(new SkipCard(color));
             
-            //  Draw2 cards
+            
             cards.push(new Draw2Card(color));
             cards.push(new Draw2Card(color));
             
-            // Reverse cards
+           
             cards.push(new ReverseCard(color));
             cards.push(new ReverseCard(color));
         
@@ -44,25 +44,24 @@ public class DECK {
         
        
         
-        // Add wild cards (4 of each type)
+        
         for (int i = 0; i < 4; i++) {
             cards.push(new WildCard());
             cards.push(new WildDraw4Card());
         }
         
-        shuffle(); //Shuffle the cards
+        shuffle(); 
     }
     
     public void shuffle() {
-        Collections.shuffle(cards); //Use built-in shuffle function
+        Collections.shuffle(cards); 
     }
-    
     public CARD draw() {
-        //Check if the deck is empty
+        
         if (cards.isEmpty()) {
-            return null; // Return null, let GAME handle reshuffle from discard
+            return null; 
         }
-        return cards.pop(); //Draw and return the top card from the deck
+        return cards.pop();
     }
     
     public void addToDeck(ArrayList<CARD> cardsToAdd) {

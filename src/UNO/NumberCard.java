@@ -4,7 +4,7 @@ public class NumberCard extends CARD{
     public NumberCard(Color color, Value value) {
         super(color, value);
         if (value.ordinal() > Value.NINE.ordinal()) {
-            throw new IllegalArgumentException("NumberCard must have a numeric value (0-9)");
+            throw new IllegalArgumentException("NumberCard must have a numeric value from 0 to 9");
         }
     }
     

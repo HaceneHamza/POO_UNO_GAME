@@ -19,7 +19,7 @@ public class WildCard extends CARD implements EFFECT {
     
     public void chooseColor(Color color) {
         if (color == Color.WILD) {
-            throw new IllegalArgumentException("Must choose a real color");
+            throw new IllegalArgumentException("you have to choose a valid color!");
         }
         setColor(color);
     }

@@ -18,18 +18,17 @@ public class GAME {
         this.discard = new Stack<CARD>();
         this.direction = 1;
 
-        // Deal 7 cards to each player
+        // tserbi lcartat
         for (PLAYER p : players) {
             for (int i = 0; i < 7; i++) {
                 p.drawCard(deck.draw());
             }
         }
 
-        // Start the discard pile with one card
+        // initialize the deck
         CARD first = deck.draw();
         discard.push(first);
 
-        // Set starting player
         this.currentPlayerIndex = 0;
         for (int i = 0; i < players.size(); i++) {
             players.get(i).setTurn(i == currentPlayerIndex);
@@ -85,18 +84,18 @@ public class GAME {
         
         while(choice > 4 || choice < 1)
         {
-        	 try {
-        		 choice = sc.nextInt();
+        	try {
+        	choice = sc.nextInt();
             sc.nextLine();
             if (choice < 1 || choice > 4) {
-            	throw new IllegalArgumentException("Choice must be between 1 and 4 ");
+            	throw new IllegalArgumentException("choice must be between 1 and 4!");
             }
         	 }  
         	 catch (IllegalArgumentException e) {
-            System.out.println("ERROR: " + e.getMessage() + " Try again.");
+            System.out.println(e.getMessage() + " Try again");
         	 }
         	 catch (Exception e) {
-                 System.out.println("ERROR: Invalid input! Try again.");
+                 System.out.println("Invalid input! Try again.");
                  sc.nextLine();
              }
         }
@@ -140,23 +139,21 @@ public class GAME {
     }
     
     public void checkAndApplyUNOPenalty(PLAYER player) {
-        // Check if player has 1 card but didn't announce UNO
         if (player.shouldPenalizeMissingUNO()) {
-            System.out.println("PENALTY: " + player.getName() + " forgot to say UNO! Drawing 2 penalty cards.");
+            System.out.println("penalty: " + player.getName() + " forgot to say UNO! drawing 2 cards.");
             for (int i = 0; i < 2; i++) {
                 CARD card = drawCardFromDeck();
                 if (card != null) {
                     player.drawCard(card);
                 }
             }
-            player.setUNOAnnounced(false); // Reset for next time
+            player.setUNOAnnounced(false);
         }
     }
     
     private CARD drawCardFromDeck() {
         CARD card = deck.draw();
         if (card == null) {
-            // Reshuffle discard pile
             reshuffleDiscardIntoDeck();
             card = deck.draw();
         }
@@ -165,17 +162,17 @@ public class GAME {
     
     private void reshuffleDiscardIntoDeck() {
         if (discard.size() <= 1) {
-            System.out.println("ERROR: Not enough cards in discard pile to reshuffle!");
+            System.out.println("Not enough cards in discard pile to reshuffle!");
             return;
         }
         
-        // Keep the top card, add the rest back to deck
+        // keep the top card and reshuffle the rest
         CARD topCard = discard.pop();
         ArrayList<CARD> cardsToReshufle = new ArrayList<>(discard);
         discard.clear();
         discard.push(topCard);
         
-        System.out.println("Deck empty! Reshuffling discard pile into draw pile...");
+        System.out.println("The Deck is empty! reshuffling cards from discard pile into draw pile");
         deck.addToDeck(cardsToReshufle);
     }
     
@@ -183,10 +180,10 @@ public class GAME {
     {
     	Scanner sc = new Scanner(System.in);
         
-        System.out.println("=== Welcome to UNO ===");
-        System.out.println("This game requires exactly 4 players.");
-        System.out.print("How many human players? (1-4): ");
-        int humanPlayers = 7;
+        System.out.println("===== Welcome to UNO =====");
+        System.out.println("This game requires 4 players.");
+        System.out.print("choose how many human players? (1-4): ");
+        int humanPlayers = 7; // SUIIIIII
         while(humanPlayers > 4 || humanPlayers < 1)
         {
         	 try {
@@ -197,19 +194,19 @@ public class GAME {
             }
         	 }  
         	 catch (IllegalArgumentException e) {
-            System.out.println("ERROR: " + e.getMessage() + " Try again.");
+            System.out.println(e.getMessage() + " Try again.");
         	 }
         	 catch (Exception e) {
-                 System.out.println("ERROR: Invalid input! Try again.");
+                 System.out.println("Invalid input! try again.");
                  sc.nextLine();
              }
         }
        
         	players =  new ArrayList<>();
-        // Add human players
+        // adding human players 
         for (int i = 0; i < humanPlayers; i++) {
             System.out.print("Enter Player " + (i + 1) + " name: ");
-            String name = sc.nextLine().trim();
+            String name = sc.nextLine();
             if (name.isEmpty()) {
                 name = "Player " + (i + 1);
             }
@@ -217,7 +214,7 @@ public class GAME {
             players.add(p);
         }
         
-        // Fill remaining spots with bots
+        // filling the rest with bots
         int botsNeeded = 4 - humanPlayers;
         for (int i = 0; i < botsNeeded; i++) {
             BOT bot = new BOT("Bot-" + (i + 1));
@@ -231,7 +228,7 @@ public class GAME {
     {
     	Scanner sc = new Scanner(System.in);
     	
-    	System.out.println("\n=== Game Started ===");
+    	System.out.println("\n===== Game Started =====");
         System.out.println("Players: ");
         for (PLAYER p : players) {
             String botLabel = (p instanceof BOT) ? " (BOT)" : "";
@@ -240,7 +237,7 @@ public class GAME {
         System.out.println();
         
         
-        // Game loop
+        // loop ta3 l game
         boolean gameOver = false;
         while (!gameOver) {
             PLAYER current = this.getCurrentPlayer();
@@ -256,7 +253,7 @@ public class GAME {
             }
             
             if (isBot) {
-                // BOT's turn - automatic play
+                // if it's bot's turn ? play automatically
                 BOT bot = (BOT) current;
                 CARD card = bot.selectPlayableCard(this.getTopCard());
                 
@@ -264,12 +261,12 @@ public class GAME {
                 	this.playCard(bot, card);
                     System.out.println(bot.getName() + " played: " + card);
                     
-                    // Check if bot won immediately
+                    // check if bot won
                     if (bot.isWinner()) {
                         System.out.println("\n=== " + bot.getName() + " wins! ===");
                         gameOver = true;
                     } else if (bot.getCardCount() == 1) {
-                        bot.setUNOAnnounced(true); // Bot auto-announces
+                        bot.setUNOAnnounced(true); // bot automatically says UNO 
                         System.out.println(bot.getName() + " said UNO!");
                     }
                 } else {
@@ -281,7 +278,7 @@ public class GAME {
                     this.nextTurn();
                 }
             } else {
-                // Human player's turn
+                // ida machi bot , human yal3ab
                 boolean turnComplete = false;
                 while (!turnComplete) {
                     System.out.print("Play a card (1-" + hand.size() + ") : ");
@@ -294,7 +291,7 @@ public class GAME {
                                 current.drawCard(drawn);
                                 System.out.println(current.getName() + " drew a card.");
                             } else {
-                                System.out.println("ERROR: No cards available!");
+                                System.out.println("No cards available!");
                             }
                             
                             this.nextTurn();
@@ -307,22 +304,22 @@ public class GAME {
                             throw new IllegalArgumentException("Choice must be between 1 and " + hand.size());
                         }
                         else {
-                            // Try to play the selected card
+                            // try to play the selected card
                             CARD card = hand.get(choice - 1);
                             if (!this.playCard(current, card)) {
-                                throw new IllegalArgumentException("This card cannot be played on " + this.getTopCard() + "!");
+                                throw new IllegalArgumentException("This card cannot be played on " + this.getTopCard());
                             }
                             System.out.println(current.getName() + " played: " + card);
                             
-                            // Check if player won immediately
+                            // check if the player has won
                             if (current.isWinner()) {
                                 System.out.println("\n=== " + current.getName() + " wins! ===");
                                 gameOver = true;
                                 turnComplete = true;
                             } else if (current.getCardCount() == 1) {
-                                // If down to 1 card, ask for UNO announcement
-                                System.out.print("You have 1 card left! Say UNO? (yes/no): ");
-                                String unoResponse = sc.nextLine().trim().toLowerCase();
+                                // if one card remained 
+                                System.out.print("You have 1 card left!");
+                                String unoResponse = sc.nextLine();
                                 if (unoResponse.equals("yes") || unoResponse.equals("y")) {
                                     current.setUNOAnnounced(true);
                                     System.out.println("UNO!");
@@ -345,7 +342,7 @@ public class GAME {
                 }
             }
             
-            // Check for UNO penalty on other players before next turn (only if game isn't over)
+            // check for penalty 
             if (!gameOver) {
                 for (PLAYER p : players) {
                     if (p != current) {
@@ -354,7 +351,7 @@ public class GAME {
                 }
             }
             
-            // Check for winner (if not already detected)
+            // checking for l winner
             if (!gameOver) {
                 for (PLAYER p : players) {
                     if (p.isWinner()) {
@@ -366,6 +363,6 @@ public class GAME {
             }
         }
         
-        System.out.println("\nThanks for playing UNO!");
+        System.out.println("thanks for playing UNO!");
     }
 }
