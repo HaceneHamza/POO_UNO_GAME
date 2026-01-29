@@ -320,7 +320,7 @@ public class GAME {
                                 // if one card remained 
                                 System.out.print("You have 1 card left!");
                                 String unoResponse = sc.nextLine();
-                                if (unoResponse.equals("yes") || unoResponse.equals("y")) {
+                                if (unoResponse.equals("UNO")) {
                                     current.setUNOAnnounced(true);
                                     System.out.println("UNO!");
                                 } else {
